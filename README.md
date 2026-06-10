@@ -57,6 +57,7 @@ attached to each [GitHub Release](https://github.com/mkaraula01/obstacle-course/
 - **Android** — `app-debug.apk` (`adb install app-debug.apk`)
 - **Windows** — `*_x64-setup.exe` / `*_arm64-setup.exe` (and matching `.msi`)
 - **macOS** — `Obstacle Course_*.dmg` (Apple Silicon)
+- **Linux** — `*_amd64.deb` / `*_arm64.deb` (and `.AppImage`)
 
 See [native mobile](#build-the-native-mobile-apps-expo) / [desktop targets](#desktop-targets) to build them yourself.
 

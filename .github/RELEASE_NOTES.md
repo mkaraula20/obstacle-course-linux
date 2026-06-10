@@ -11,6 +11,17 @@ adb install app-debug.apk
 ```
 Ideal for Appium / mobile automation.
 
+### Linux (Ubuntu/Debian) — `.deb` (and `.AppImage` when available)
+Two architectures: **`_amd64`** (Intel/AMD 64-bit) and **`_arm64`** (ARM). Install the matching `.deb`:
+```bash
+sudo apt install ./obstacle-course_*_amd64.deb   # or _arm64
+```
+Or run the portable **AppImage** (no install, no root):
+```bash
+chmod +x ./*.AppImage && ./*.AppImage
+```
+Requires WebKitGTK (`libwebkit2gtk-4.1`), preinstalled on most desktop Ubuntu.
+
 ### Windows — `*-setup.exe` (installer) or `*.msi`
 Two architectures are attached — pick the one matching the PC:
 - **`*_x64-setup.exe` / `*_x64_*.msi`** — Intel/AMD 64-bit (most PCs)
