@@ -6,4 +6,14 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+
+    let mut builder = tauri::Builder::default()
+    .invoke_handler(tauri::generate_handler![/* your commands */]);
+
+    #[cfg(feature = "e2e-testing")]
+    {
+        builder = builder.plugin(tauri_plugin_playwright::init());
+    }
+
+    builder.run(tauri::generate_context!()).expect("error running app");
 }
