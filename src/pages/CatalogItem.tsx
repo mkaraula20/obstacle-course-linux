@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { useParams } from "react-router-dom";
+import { useParams } from "../routing";
 import { CATALOG } from "../data";
 import { useTheme } from "../theme";
 import { Badge, H1, P, TextLink } from "../ui";

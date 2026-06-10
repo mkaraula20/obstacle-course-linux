@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { Platform } from "react-native";
 
 export type Scheme = "light" | "dark";
 
@@ -49,10 +50,13 @@ const ThemeContext = createContext<ThemeValue | null>(null);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [scheme, setScheme] = useState<Scheme>("light");
 
-  // Mirror the scheme onto <html data-theme> so the document background matches
-  // and so the same theme assertion works on every platform's webview.
+  // On web, mirror the scheme onto <html data-theme> so the document background
+  // matches and the theme assertion works. Native has no DOM — the palette below
+  // is what drives the UI there.
   useEffect(() => {
-    document.documentElement.dataset.theme = scheme;
+    if (Platform.OS === "web") {
+      document.documentElement.dataset.theme = scheme;
+    }
   }, [scheme]);
 
   const value = useMemo<ThemeValue>(

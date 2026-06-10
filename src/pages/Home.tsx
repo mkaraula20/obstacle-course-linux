@@ -1,5 +1,5 @@
 import { Pressable, Text, View } from "react-native";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../routing";
 import { useTheme } from "../theme";
 import { H1, P } from "../ui";
 

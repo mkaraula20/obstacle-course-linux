@@ -23,15 +23,15 @@ export default function Async() {
   const [error, setError] = useState<string | null>(null);
   const [delayedVisible, setDelayedVisible] = useState(false);
   const counterRef = useRef(0);
-  const timer = useRef<number | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Simulate a network fetch that resolves after ~800ms.
   function loadQuote(shouldFail = false) {
     setLoading(true);
     setError(null);
     setQuote(null);
-    if (timer.current) window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
       setLoading(false);
       if (shouldFail) {
         setError("Failed to load. Try again.");
@@ -45,7 +45,7 @@ export default function Async() {
 
   function revealLater() {
     setDelayedVisible(false);
-    window.setTimeout(() => setDelayedVisible(true), 1200);
+    setTimeout(() => setDelayedVisible(true), 1200);
   }
 
   return (

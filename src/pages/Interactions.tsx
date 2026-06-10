@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
 import { useModalHost } from "../modal";
 import { useTheme } from "../theme";
 import { Button, Card, H1, H2, Input, P, Row } from "../ui";
@@ -35,7 +35,10 @@ function ModalDemo() {
       <View
         testID="modal-backdrop"
         style={{
-          position: "fixed",
+          // "fixed" pins to the viewport on web; native has no "fixed", but the
+          // overlay is rendered at the app root so "absolute" + inset:0 fills the
+          // screen there.
+          position: Platform.select({ web: "fixed", default: "absolute" }),
           top: 0,
           left: 0,
           right: 0,

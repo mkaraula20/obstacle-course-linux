@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Obstacle Course",
+    "slug": "obstacle-course",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "obstaclecourse",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "plugins": ["./plugins/withFmtConstevalFix.cjs"],
+    "experiments": {
+      "//": "Ignore tsconfig 'paths' in Metro. We map react-native → a type-only shim for tsc; Metro must use the real react-native at runtime.",
+      "tsconfigPaths": false
+    },
+    "ios": {
+      "bundleIdentifier": "com.example.obstaclecourse",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.example.obstaclecourse"
+    }
+  }
+}

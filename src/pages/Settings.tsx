@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Pressable, Text, View } from "react-native";
+import { storage } from "../storage";
 import { useTheme } from "../theme";
 import { Button, Card, H1, H2, Input, P, Row } from "../ui";
 
@@ -11,23 +12,39 @@ interface Persisted {
   volume: number;
 }
 
-function load(): Persisted {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw) as Persisted;
-  } catch {
-    /* ignore */
-  }
-  return { count: 0, notifications: true, volume: 50 };
-}
+const DEFAULTS: Persisted = { count: 0, notifications: true, volume: 50 };
 
 export default function Settings() {
   const { colors } = useTheme();
-  const [state, setState] = useState<Persisted>(load);
+  const [state, setState] = useState<Persisted>(DEFAULTS);
+  const hydrated = useRef(false);
 
-  // Persist so state survives reloads — identical behaviour on every platform.
+  // Hydrate from storage on mount. The storage layer is async (localStorage on
+  // web, AsyncStorage on native, behind one interface), so we load in an effect
+  // rather than synchronously, then allow saves.
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    let active = true;
+    storage.getItem(STORAGE_KEY).then((raw) => {
+      if (active && raw) {
+        try {
+          setState(JSON.parse(raw) as Persisted);
+        } catch {
+          /* ignore corrupt value */
+        }
+      }
+      hydrated.current = true;
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  // Persist on change — but not before hydration, or we'd clobber the stored
+  // value with defaults on first mount.
+  useEffect(() => {
+    if (hydrated.current) {
+      storage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
   }, [state]);
 
   return (

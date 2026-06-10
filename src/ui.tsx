@@ -1,6 +1,6 @@
 import { Pressable, Text, TextInput, View } from "react-native";
 import type { ViewStyle } from "react-native";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "./routing";
 import { useTheme } from "./theme";
 
 /** Section heading (was <h1>). */

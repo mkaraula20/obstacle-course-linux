@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Cross-platform Tauri 2 + React app — a Playwright obstacle course, identical on web/desktop/mobile.",
+  "main": "index.js",
+  "description": "React Native app (web via react-native-web + Tauri; native via Expo) — a Playwright obstacle course.",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -11,14 +12,21 @@
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",
+    "start": "expo start",
+    "ios": "expo run:ios",
+    "android": "expo run:android",
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "1.23.1",
+    "expo": "~52.0.0",
+    "expo-status-bar": "~2.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-native": "^0.76.9",
     "react-native-web": "^0.19.13",
     "react-router-dom": "^6.26.2"
   },
