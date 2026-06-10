@@ -18,6 +18,47 @@ see [How web and native share code](#how-web-and-native-share-code).
 
 ---
 
+## Point your tests at it
+
+**Live web app:** <https://mkaraula01.github.io/obstacle-course/>
+
+That's the easiest way to use it — no clone, no install. Aim any web automation
+framework at the URL and start writing tests against the stations below. Every
+interactive element has a stable `data-testid` (and accessible roles), so
+selectors are identical across tools:
+
+```js
+// Playwright
+await page.goto("https://mkaraula01.github.io/obstacle-course/");
+await page.getByTestId("nav-forms").click();
+
+// Cypress
+cy.visit("https://mkaraula01.github.io/obstacle-course/");
+cy.get('[data-testid="nav-forms"]').click();
+
+// Selenium / WebdriverIO / Puppeteer / TestCafe — same URL, same data-testids
+```
+
+Routes are hash-based (`/#/forms`, `/#/catalog/gizmo`), so deep links work
+without any server config.
+
+**Run your own instance** (to modify the app, or test offline/CI):
+
+```bash
+git clone https://github.com/mkaraula01/obstacle-course.git
+cd obstacle-course && npm install
+npm run build && npm run preview   # → http://localhost:4173
+# or: npm run dev                   # → http://localhost:5173 (hot reload)
+```
+
+**Mobile & desktop builds** (for Appium, desktop automation, or native use) are
+attached to each [GitHub Release](https://github.com/mkaraula01/obstacle-course/releases):
+the Android **`.apk`** (install with `adb install app-debug.apk`) and the macOS
+**`.dmg`**. See [native mobile](#build-the-native-mobile-apps-expo) to build them
+yourself.
+
+---
+
 ## Stack
 
 | Layer        | Tool                                  | Role                                            |

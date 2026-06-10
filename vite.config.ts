@@ -8,6 +8,13 @@ const host = process.env.TAURI_DEV_HOST;
 export default defineConfig({
   plugins: [react()],
 
+  // GitHub Pages serves the site from the repo subpath, so assets must be
+  // requested from "/obstacle-course/". Only the Pages build sets this (the CI
+  // workflow exports GITHUB_PAGES=true); local dev, Playwright preview, and the
+  // Tauri desktop build all keep the default "/". HashRouter means routing works
+  // unchanged under the subpath.
+  base: process.env.GITHUB_PAGES === "true" ? "/obstacle-course/" : "/",
+
   // The UI is written in React Native primitives; `react-native-web` maps them
   // to the DOM so the exact same component tree renders in the browser, in the
   // Tauri desktop webview, and (later) on native mobile.
