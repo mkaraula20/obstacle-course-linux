@@ -1,0 +1,25 @@
+[package]
+name = "obstacle-course"
+version = "0.1.0"
+description = "Cross-platform Playwright obstacle course"
+authors = ["you"]
+edition = "2021"
+rust-version = "1.77.2"
+
+# The library is what mobile (iOS/Android) links against; the binary is desktop.
+[lib]
+name = "obstacle_course_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[features]
+# This feature is used for production builds where `devUrl` is not used.
+custom-protocol = ["tauri/custom-protocol"]

@@ -1,0 +1,19 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Tauri / Rust
+src-tauri/target
+src-tauri/gen
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json

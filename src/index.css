@@ -1,0 +1,20 @@
+/*
+ * Minimal reset only. All component styling lives in React Native StyleSheet /
+ * inline styles; react-native-web injects the rest. We just need the document
+ * to fill the viewport and pick a base font + themed background.
+ */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root[data-theme="dark"] body {
+  background: #0f1115;
+}
