@@ -1,9 +1,9 @@
-name: Release builds (APK + DMG)
+name: Release builds (Android + macOS + Windows)
 
-# Cut a release by pushing a tag, e.g.:
-#   git tag v0.1.0 && git push origin v0.1.0
-# This builds the Android debug APK (installable for Appium / mobile QA) and the
-# macOS .dmg (desktop), and attaches both to the GitHub Release for that tag.
+# Cut a release by pushing a version tag, e.g.:
+#   git tag v0.1.1 && git push origin v0.1.1
+# Builds the Android APK, macOS .dmg, and Windows x64 + ARM64 installers, and
+# attaches them all to the GitHub Release for that tag.
 on:
   push:
     tags: ["v*"]
@@ -37,6 +37,7 @@ jobs:
         with:
           files: android/app/build/outputs/apk/debug/*.apk
           fail_on_unmatched_files: true
+          body_path: .github/RELEASE_NOTES.md
 
   macos-dmg:
     runs-on: macos-latest
@@ -55,3 +56,41 @@ jobs:
         with:
           files: src-tauri/target/release/bundle/dmg/*.dmg
           fail_on_unmatched_files: true
+          body_path: .github/RELEASE_NOTES.md
+
+  windows:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: x86_64-pc-windows-msvc
+            arch: x64
+          - target: aarch64-pc-windows-msvc
+            arch: arm64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+          key: ${{ matrix.target }}
+      - run: npm ci
+      - name: Build Windows installers (${{ matrix.arch }}) via Tauri
+        run: npm run tauri:build -- --target ${{ matrix.target }}
+      - name: Attach Windows installers to release
+        uses: softprops/action-gh-release@v2
+        with:
+          # Tauri emits an NSIS "-setup.exe" and a WiX ".msi"; arch is in the
+          # filename so x64 and arm64 artifacts never collide on the release.
+          files: |
+            src-tauri/target/${{ matrix.target }}/release/bundle/nsis/*.exe
+            src-tauri/target/${{ matrix.target }}/release/bundle/msi/*.msi
+          fail_on_unmatched_files: false
+          body_path: .github/RELEASE_NOTES.md

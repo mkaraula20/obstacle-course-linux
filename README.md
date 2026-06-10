@@ -53,9 +53,18 @@ npm run build && npm run preview   # → http://localhost:4173
 
 **Mobile & desktop builds** (for Appium, desktop automation, or native use) are
 attached to each [GitHub Release](https://github.com/mkaraula01/obstacle-course/releases):
-the Android **`.apk`** (install with `adb install app-debug.apk`) and the macOS
-**`.dmg`**. See [native mobile](#build-the-native-mobile-apps-expo) to build them
-yourself.
+
+- **Android** — `app-debug.apk` (`adb install app-debug.apk`)
+- **Windows** — `*_x64-setup.exe` / `*_arm64-setup.exe` (and matching `.msi`)
+- **macOS** — `Obstacle Course_*.dmg` (Apple Silicon)
+
+See [native mobile](#build-the-native-mobile-apps-expo) / [desktop targets](#desktop-targets) to build them yourself.
+
+> **Gatekeeper / SmartScreen on unsigned builds:**
+> - **macOS** may say the `.dmg` app is **"damaged"** — it isn't; that's Gatekeeper blocking an un-notarized download. Drag **Obstacle Course.app** to `/Applications`, then run once: `xattr -dr com.apple.quarantine "/Applications/Obstacle Course.app"`, and open it.
+> - **Windows** SmartScreen may warn "Windows protected your PC" → **More info → Run anyway**.
+>
+> Both go away with code signing/notarization (paid Apple / Windows certs).
 
 ---
 
