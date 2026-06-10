@@ -32,11 +32,9 @@ jobs:
         run: npm run build
         env:
           GITHUB_PAGES: "true"
+      # Requires Pages to be enabled once: repo Settings → Pages →
+      # "Build and deployment" → Source: "GitHub Actions".
       - uses: actions/configure-pages@v5
-        with:
-          # Try to turn on Pages automatically on the first run (falls back to
-          # the manual Settings → Pages → Source: GitHub Actions toggle).
-          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
