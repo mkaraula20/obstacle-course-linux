@@ -2,7 +2,7 @@
   "expo": {
     "name": "Obstacle Course",
     "slug": "obstacle-course",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "orientation": "portrait",
     "scheme": "obstaclecourse",
     "userInterfaceStyle": "automatic",
