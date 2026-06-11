@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './src-tauri/e2e',
+  testDir: './src-tauri/e2e/tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0,
@@ -39,5 +39,6 @@ export default defineConfig({
     command: 'pnpm dev',
     port: 5173,
     reuseExistingServer: true,
+    cwd: '..',
   },
 });

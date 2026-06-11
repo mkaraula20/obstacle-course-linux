@@ -40,6 +40,10 @@ export default defineConfig({
     strictPort: true,
     host: host || false,
     hmr: host ? { protocol: "ws", host, port: 5183 } : undefined,
+    proxy: {
+      "/pw-poll": "http://localhost:6275",
+      "/pw": "http://localhost:6275",
+    },
     watch: {
       // Don't watch the Rust source tree.
       ignored: ["**/src-tauri/**"],

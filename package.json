@@ -33,7 +33,8 @@
     "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.47.2",
+    "@playwright/test": "^1.60.0",
+    "@srsholmes/tauri-playwright": "^0.4.0",
     "@tauri-apps/cli": "^2.1.0",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
