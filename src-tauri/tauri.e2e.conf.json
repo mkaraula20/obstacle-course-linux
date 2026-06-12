@@ -3,6 +3,7 @@
   "app": {
     "windows": [
       {
+        "title": "Obstacle Course",
         "url": "http://localhost:5173"
       }
     ]
